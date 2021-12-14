@@ -1,0 +1,40 @@
+* {
+    color: maroon;
+    border-color: maroon;
+}
+body {
+    /* background-color: #f1ddf1; need color that match the image */
+    background-image: url(../images/pink-flowers.jpg);
+    background-repeat: repeat-y;
+    background-size: 100%;
+    
+}
+#calender {
+    border-radius: 3px;
+    background-color: #f5d1f5;
+    box-shadow: 0 0 5px 5px #f5d1f5;
+    border: none;
+}
+.num {
+color:#af2121;
+}
+.th, .td {
+    border-color: maroon;
+}
+button {
+    border: none;
+    color: #f5d1f5;
+    background-color: maroon;
+}
+.empty {
+    background-color: #f7cbd9;
+}
+.shabat {
+    background-color: #eebbee;
+}
+#today {
+    background-color: #d87093;
+}
+#today > .date > .ot, #today > .date > .num { 
+    color: #f5d1f5;
+}

@@ -1,0 +1,38 @@
+* {
+    color: #000000;
+    border-color: #000000;
+}
+body {
+    background-color: #ffffff;
+}
+#calender {
+    border-color: #000000;
+    padding: 0;
+    width: 667px;
+}
+.num {
+    color: #848484;
+}
+.th, .td, .caption {
+    border-color:#000000;
+}
+button {
+    border-color: #000;
+    color: #000000;
+    background-color: #ffffff;
+}
+.empty {
+    background-color: #d6d6d6;
+}
+.shabat {
+    background-color: #e4e4e4;
+}
+.shabat > .date > .num {
+    color: #5c5c5c;
+}
+#today {
+    background-color: #929292;
+}
+#today > .date > .ot, #today > .date > .num {
+    color: #ffffff;
+}

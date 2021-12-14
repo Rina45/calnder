@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial;
+    margin: 0;
+    padding: 0;
+}
+:root{
+    --widthTd: 95px;
+    --calPad: 10px;
+}
+body {
+    direction: rtl;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+#Besad {
+    font-size: 12px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+header {
+    margin: 20px;
+}
+#calender {
+    width: 685px;
+    padding: var(--calPad);
+    border-width: 1px;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+#caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+#monthName {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+#heMonth, #loMonth {
+    margin: 1px;
+}
+button {
+    height: 40px;
+    width: 50px;
+    margin: 3px;
+    border-radius: 10px;
+    font-size:25px;
+    text-align: center;
+    border-width: 2px;
+    border-style: solid;
+}
+#next, #last {
+    display: flex;
+    flex-flow: row nowrap
+}
+#thead {
+    display: flex;
+    width: 665px;
+}
+.th {
+    border-width: 1px;
+    border-style: solid;
+    width: var(--widthTd);
+    text-align: center;
+}
+#tbody {
+    width: 665px;
+    display: flex;
+    flex-flow: row wrap;
+}
+.td {
+    border-width: 1px;
+    border-style: solid;
+    width: var(--widthTd);
+    height: 60px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+.date {
+    width: 90px;
+    display: flex;
+    justify-content: space-between;
+    padding: 2px;
+    
+}
+.ot {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.event, .parasha {
+    font-size: 0.9rem;
+}

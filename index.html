@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <title>hebrew calender</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/_colors.css">
+    <!-- <link rel="stylesheet" href="css/_black&white.css"> -->
+</head>
+<body>
+    <div id="Besad">בס"ד</div>
+    <header>
+        <h1>לוח שנה</h1>
+    </header>
+    <main id="calender">
+        <div id="caption">
+            <div id="last">
+                <button class="year" title="השנה הקודמת" onclick="lastYear()"><<</button>
+                <button class="month" title="החודש הקודם" onclick="lastMonth()"><</button>
+            </div>
+            <div id="monthName">
+                <h2 id="heMonth">תשרי ה'תשפ"ב</h2>
+                <h3 id="loMonth"></h3>
+            </div>
+            <div id="next">
+                <button class="month" title="חודש הבא" onclick="nextMonth()">></button>
+                <button class="year" title="שנה הבאה" onclick="nextYear()">>></button>
+            </div>
+        </div>
+            <div id="thead">
+                <div class="th">ראשון</div>
+                <div class="th">שני</div>
+                <div class="th">שלישי</div>
+                <div class="th">רביעי</div>
+                <div class="th">חמישי</div>
+                <div class="th">שישי</div>
+                <div class="th shabat">שבת</div>
+            </div>
+        <div id="tbody">
+            <div class="td empty"></div>
+            <div class="td empty"></div>
+            <div class="td holiday">
+                <div class="date">
+                    <div class="ot">א</div>
+                    <div class="num">7</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">ראש השנה</div>
+               </div> 
+            </div>
+            <div class="td holiday" id="today">
+                <div class="date">
+                    <div class="ot">ב</div>
+                    <div class="num">8</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">ראש השנה</div>
+               </div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">ג</div>
+                    <div class="num">9</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">צום גדליה</div>
+               </div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">ד</div>
+                    <div class="num">10</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td holiday shabat">
+                <div class="date">
+                    <div class="ot">ה</div>
+                    <div class="num">11</div>
+                </div>
+                <div class="parasha">וילך</div>
+               <div class="all-events">
+               </div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">ו</div>
+                    <div class="num">12</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">ז</div>
+                    <div class="num">13</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">ח</div>
+                    <div class="num">14</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">ט</div>
+                    <div class="num">15</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td holiday">
+                <div class="date">
+                    <div class="ot">י</div>
+                    <div class="num">16</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">יום כיפור</div>
+               </div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">יא</div>
+                    <div class="num">17</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td holiday shabat">
+                <div class="date">
+                    <div class="ot">יב</div>
+                    <div class="num">18</div>
+                </div>
+                <div class="parasha">האזינו</div>
+               <div class="all-events">
+               </div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">יג</div>
+                    <div class="num">19</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">יד</div>
+                    <div class="num">20</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td holiday">
+                <div class="date">
+                    <div class="ot">טו</div>
+                    <div class="num">21</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">סוכות</div>
+               </div> 
+            </div>
+            <div class="td vacation">
+                <div class="date">
+                    <div class="ot">טז</div>
+                    <div class="num">22</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">א' חול המועד</div>
+               </div> 
+            </div>
+            <div class="td vacation">
+                <div class="date">
+                    <div class="ot">יז</div>
+                    <div class="num">23</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">ב' חול המועד</div>
+               </div> 
+            </div>
+            <div class="td vacation">
+                <div class="date">
+                    <div class="ot">יח</div>
+                    <div class="num">24</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">ג' חול המועד</div>
+               </div> 
+            </div>
+            <div class="td holiday shabat">
+                <div class="date">
+                    <div class="ot">יט</div>
+                    <div class="num">25</div>
+                </div>
+                <div class="all-events">
+                   <div class="event">שבת חול המועד</div>
+               </div> 
+            </div>
+            <div class="td vacation">
+                <div class="date">
+                    <div class="ot">כ</div>
+                    <div class="num">26</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">ה' חול המועד</div>
+               </div> 
+            </div>
+            <div class="td vacation">
+                <div class="date">
+                    <div class="ot">כא</div>
+                    <div class="num">27</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">הושענא רבא</div>
+               </div> 
+            </div>
+            <div class="td holiday">
+                <div class="date">
+                    <div class="ot">כב</div>
+                    <div class="num">28</div>
+                </div>
+               <div class="all-events">
+                   <div class="event">שמחת תורה</div>
+               </div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">כג</div>
+                    <div class="num">29</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">כד</div>
+                    <div class="num">30</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">כה</div>
+                    <div class="num"><b>1</b></div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td holiday shabat">
+                <div class="date">
+                    <div class="ot">כו</div>
+                    <div class="num">2</div>
+                </div>
+                <div class="parasha">בראשית</div>
+               <div class="all-events">
+               </div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">כז</div>
+                    <div class="num">3</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">כח</div>
+                    <div class="num">4</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">כט</div>
+                    <div class="num">5</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td">
+                <div class="date">
+                    <div class="ot">ל</div>
+                    <div class="num">6</div>
+                </div>
+               <div class="all-events"></div> 
+            </div>
+            <div class="td empty"></div>
+            <div class="td empty"></div>
+            <div class="td empty"></div> 
+        </div>
+    </main>
+    <footer></footer>
+    <script src="js/srcipt.js"></script>
+</body>
+</html>
