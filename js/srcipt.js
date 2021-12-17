@@ -1,5 +1,6 @@
 //make object for a date square {ot, num, events array, shabbat parasha}
 
+
 /* steps for the js srcipt:
 1.find the first day in the current monthH (=hebrew month)
 2.change the caption to fit the current month (the monthL (=none hebrew month) of the first and last day of the month)
@@ -12,7 +13,7 @@ let dateL= new Date();
 
 function renderCalnder() {
     dateL = checkDateL(dateL);
-    
+
     const monthsL = ['ינואר',
     'פברואר',
     'מרץ',
@@ -75,3 +76,9 @@ function lastYear() {
     renderCalnder();
 }
 
+// function getHforL (dateL) {
+//     const url = `https://www.hebcal.com/converter?cfg=json&gy=${dateL.getFullYear()}&gm=${dateL.getMonth()}&gd=${dateL.getDate()}&g2h=1`;
+//     fetch(url).then(response => {console.log(response);});
+// }
+
+// getHforL(dateL);
