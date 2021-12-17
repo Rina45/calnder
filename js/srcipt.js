@@ -12,6 +12,8 @@ learn to use "hebcal" */
 let dateL= new Date();
 
 function renderCalnder() {
+    let heMonth = document.getElementById("heMonth");
+    getHforL(dateL).then(text => {heMonth.textContent=text});
     dateL = checkDateL(dateL);
 
     const monthsL = ['ינואר',
@@ -76,9 +78,26 @@ function lastYear() {
     renderCalnder();
 }
 
-// function getHforL (dateL) {
-//     const url = `https://www.hebcal.com/converter?cfg=json&gy=${dateL.getFullYear()}&gm=${dateL.getMonth()}&gd=${dateL.getDate()}&g2h=1`;
-//     fetch(url).then(response => {console.log(response);});
-// }
+async function getHforL (dateL) {
+    const url = `https://www.hebcal.com/converter?cfg=json&gy=${dateL.getFullYear()}&gm=${dateL.getMonth()+1}&gd=${dateL.getDate()}&g2h=1`;
+    const response = await fetch(url);
+    const data = await response.json();
+    heDate = await data.hebrew;
+    return heDate;
+}
 
-// getHforL(dateL);
+
+const monthsH = [
+    'Tishrei',
+    'Cheshvan',
+    'Kislev',
+    'Tevet',
+    "Sh'vat",
+    'Adar',
+    'Nisan',
+    'Iyyar',
+    'Sivan',
+    'Tamuz',
+    'Av',
+    'Elul'
+]
