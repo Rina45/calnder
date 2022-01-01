@@ -1,4 +1,3 @@
-# calnder
-hebrew calnder
-with pink-floral design
-use hebcal api.
+# Heabrew Calnder
+Hebrew calnder with pink-floral design.
+The project use Hebcal api.
