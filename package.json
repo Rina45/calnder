@@ -1,0 +1,28 @@
+{
+  "name": "pink-hewbrew-calnder",
+  "version": "1.0.0",
+  "description": "web herbew calnder in pink",
+  "main": "js/sricpit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rina45/calnder.git"
+  },
+  "keywords": [
+    "hebrew",
+    "calnder",
+    "jewish",
+    "calnder"
+  ],
+  "author": "Rina45",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rina45/calnder/issues"
+  },
+  "homepage": "https://github.com/Rina45/calnder#readme",
+  "dependencies": {
+    "@hebcal/core": "^3.33.2"
+  }
+}
