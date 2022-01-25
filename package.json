@@ -1,8 +1,8 @@
 {
-  "name": "pink-hewbrew-calnder",
+  "name": "pink-hebrew-calender",
   "version": "1.0.0",
-  "description": "web herbew calnder in pink",
-  "main": "js/sricpit.js",
+  "description": "web hebrew calender in pink",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,12 +12,11 @@
   },
   "keywords": [
     "hebrew",
-    "calnder",
+    "calender",
     "jewish",
-    "calnder"
+    "calender"
   ],
   "author": "Rina45",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Rina45/calnder/issues"
   },
