@@ -12,26 +12,20 @@ learn to use "hebcal" */
 let dateL = new Date();
 let dateH = {};
 
-function renderCalender() {
-    dateL = checkDateL(dateL);
+async function firstRender() {
+    dateH = await getHebrewDate(dateL);
+    dateL = await getLDate({ ...dateH, hd: 1 });
+    renderCalender(dateL);
+}
+
+window.onload = firstRender();
+
+function renderCalender(dateL) {
     // dateH = checkDateH();
     let heMonth = document.getElementById("heMonth");
-    getHebrewDate(dateL).then(date => { heMonth.textContent = date.hebrew });
+    getHebrewDate(dateL).then(date => { heMonth.textContent = date.hebrew; });
     let loMonth = document.getElementById("loMonth");
     loMonth.textContent = writeLoMonth(dateL);
-}
-window.onload = renderCalender();
-
-function checkDateL(dateL) {
-    if (dateL.getMonth() >= 12) {
-        dateL.setMonth(0);
-        dateL.setFullYear(dateL.getFullYear() + 1);
-    }
-    else if (dateL.getMonth() <= -1) {
-        dateL.setMonth(12);
-        dateL.setFullYear(dateL.getFullYear() - 1);
-    }
-    return dateL;
 }
 
 function writeLoMonth(dateL) {
@@ -66,22 +60,22 @@ document.querySelector("#last > .year").addEventListener('click', lastYear);
 
 function nextMonth() {
     dateL.setMonth(dateL.getMonth() + 1);
-    renderCalender();
+    renderCalender(dateL);
 }
 
 function lastMonth() {
     dateL.setMonth(dateL.getMonth() - 1);
-    renderCalender();
+    renderCalender(dateL);
 }
 
 function nextYear() {
     dateL.setFullYear(dateL.getFullYear() + 1);
-    renderCalender();
+    renderCalender(dateL);
 }
 
 function lastYear() {
     dateL.setFullYear(dateL.getFullYear() - 1);
-    renderCalender();
+    renderCalender(dateL);
 }
 
 async function getHebrewDate(dateL) {
@@ -89,4 +83,12 @@ async function getHebrewDate(dateL) {
     const response = await fetch(url);
     const data = await response.json();
     return data
+}
+
+async function getLDate(dateH) {
+    const url = `https://www.hebcal.com/converter?cfg=json&hy=${dateH.hy}&hm=${dateH.hm}&hd=${dateH.hd}&h2g=1`;
+    const response = await fetch(url);
+    const data = await response.json();
+    let date = new Date(data.gy, data.gm - 1, data.gd);
+    return date;
 }
