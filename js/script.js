@@ -13,14 +13,16 @@ async function firstRender() {
     dateH = await getHebrewDate(dateL);
     dateH.hd = 1;
     dateL = await getLoDate(dateH);
-    renderCalender(dateL, dateH);
+    renderCalender(dateL);
 }
 
 window.onload = firstRender();
 
-function renderCalender(dateL, dateH) {
+async function renderCalender(dateL) {
+    let month = await getMonth(dateL);
+    dateH = month[0];
     writeTitle(dateH, dateL);
-    writeDays(dateL);
+    writeDays(month);
 }
 
 function writeTitle(dateH, dateL) {
@@ -33,7 +35,7 @@ function writeTitle(dateH, dateL) {
 function writeHeMonth(date) {
     const heMonths = [
         "תשרי",
-        "חשון",
+        "חשוון",
         "כסלו",
         "טבת",
         "שבט",
@@ -198,30 +200,41 @@ function writeLoMonth(dateL) {
     }
 }
 
-function writeDays(dateL) {
-    const month = getMonth(dateL).result;
-    console.log(month);
+function writeDays(month) {
     let calender = document.getElementById('tbody');
-    for (let numDay = 0; numDay < 30; numDay++) {
-        calender.append(createDay(numDay));
-        console.log(month[numDay]);
+    calender.innerHTML = "";
+    calender.append(...createFills(month[0].gd.getDay()));
+    for (let i = 0; i < month.length - 1; i++) {
+        calender.append(createDay(month[i]));
     }
+    calender.append(...createFills(6 - month[29].gd.getDay()));
 }
 
 function createDay(date) {
+    console.log(date)
     let day = document.createElement('div');
     day.className = 'td';
     let datePlace = document.createElement('div');
     datePlace.className = 'date';
     let ot = document.createElement('div');
     ot.className = 'ot';
-    ot.textContent = numToHe(day);
+    ot.textContent = numToHe(date.hd);
     let num = document.createElement('div');
+    //bold in first lo
     num.className = 'num';
-    num.textContent = date;
+    num.textContent = date.gd.getDate();
     datePlace.append(ot, num);
     day.append(datePlace);
     return day;
+}
+
+function createFills(numDays) {
+    let fills = [];
+    for (let i = 0; i < numDays; i++) {
+        fills[i] = document.createElement('div');
+        fills[i].className = 'td empty';
+    }
+    return fills;
 }
 
 document.querySelector("#next > .month").addEventListener('click', nextMonth);
@@ -229,15 +242,52 @@ document.querySelector("#next > .year").addEventListener('click', nextYear);
 document.querySelector("#last > .month").addEventListener('click', lastMonth);
 document.querySelector("#last > .year").addEventListener('click', lastYear);
 
-function nextMonth() {
-    dateL.setMonth(dateL.getMonth() + 1);
-    renderCalender(dateL, dateH);
+async function nextMonth() {
+    dateH = futureMonth(dateH);
+    dateL = await getLoDate(dateH);
+    renderCalender(dateL);
+}
+
+function futureMonth(date) {
+    const enMonths = [
+        'Tishrei',
+        'Cheshvan',
+        'Kislev',
+        'Tevet',
+        'Sh\'vat',
+        'Adar',
+        'Nisan',
+        'Iyyar',
+        'Sivan',
+        'Tamuz',
+        'Av',
+        'Elul'
+    ]
+    switch (date.hm) {
+        case 'Sh\'vat':
+            date.hm = 'Adar I';
+            break;
+        case 'Adar I':
+            date.hm = 'Adar II';
+            break;
+        case 'Adar II':
+            date.hm = 'Nisan';
+            break;
+        case 'Elul':
+            date.hm = 'Tishrei';
+            date.hy++;
+            break;
+        default:
+            date.hm = enMonths[enMonths.indexOf(date.hm) + 1];
+            break;
+    }
+    return date;
 }
 
 async function lastMonth() {
     dateH = preMonth(dateH);
     dateL = await getLoDate(dateH);
-    renderCalender(dateL, dateH);
+    renderCalender(dateL);
 }
 
 function preMonth(date) {
@@ -279,13 +329,13 @@ function preMonth(date) {
 async function nextYear() {
     dateH.hy++;
     dateL = await getLoDate(dateH);
-    renderCalender(dateL, dateH);
+    renderCalender(dateL);
 }
 
 async function lastYear() {
     dateH.hy--;
     dateL = await getLoDate(dateH);
-    renderCalender(dateL, dateH);
+    renderCalender(dateL);
 }
 
 async function getHebrewDate(dateL) {
@@ -308,9 +358,10 @@ async function getMonth(firstDate, numDays = 30) {
     lastDate.setDate(firstDate.getDate() + numDays);
     const url = `https://www.hebcal.com/converter?cfg=json&start=${stringDate(firstDate)}&end=${stringDate(lastDate)}&g2h=1`;
     const response = await fetch(url);
-    const data = await response.json();
-    const monthObj = await data.hdates;
-    const month = Object.entries(monthObj);
+    let month = await response.json();
+    month = month.hdates;
+    month = Object.entries(month);
+    month = month.map(date => { return { ...date[1], gd: new Date(date[0]) } });
     return month;
 }
 
