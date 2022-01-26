@@ -16,7 +16,9 @@ function renderCalender() {
     dateL = checkDateL(dateL);
     // dateH = checkDateH();
     let heMonth = document.getElementById("heMonth");
-    getHebrewDate(dateL).then(text => { heMonth.textContent = text });
+    getHebrewDate(dateL).then(date => { heMonth.textContent = date.hebrew });
+    let loMonth = document.getElementById("loMonth");
+    loMonth.textContent = writeLoMonth(dateL);
 }
 window.onload = renderCalender();
 
@@ -24,16 +26,12 @@ function checkDateL(dateL) {
     if (dateL.getMonth() >= 12) {
         dateL.setMonth(0);
         dateL.setFullYear(dateL.getFullYear() + 1);
-        return dateL;
     }
     else if (dateL.getMonth() <= -1) {
         dateL.setMonth(12);
         dateL.setFullYear(dateL.getFullYear() - 1);
-        return dateL;
     }
-    else {
-        return dateL;
-    }
+    return dateL;
 }
 
 function writeLoMonth(dateL) {
@@ -61,6 +59,11 @@ function writeLoMonth(dateL) {
 
 //DON'T FORGET TO ADD HEBREW DATES + -
 
+document.querySelector("#next > .month").addEventListener('click', nextMonth);
+document.querySelector("#next > .year").addEventListener('click', nextYear);
+document.querySelector("#last > .month").addEventListener('click', lastMonth);
+document.querySelector("#last > .year").addEventListener('click', lastYear);
+
 function nextMonth() {
     dateL.setMonth(dateL.getMonth() + 1);
     renderCalender();
@@ -85,6 +88,5 @@ async function getHebrewDate(dateL) {
     const url = `https://www.hebcal.com/converter?cfg=json&gy=${dateL.getFullYear()}&gm=${dateL.getMonth() + 1}&gd=${dateL.getDate()}&g2h=1`;
     const response = await fetch(url);
     const data = await response.json();
-    heDate = await data.hebrew;
-    return heDate;
+    return data
 }

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/_colors.css">
     <!-- <link rel="stylesheet" href="css/_black&white.css"> -->
+    <script type="module" defer src="js/script.js"></script>
 </head>
 
 <body>
@@ -16,9 +17,9 @@
     <main id="calender">
         <div id="caption">
             <div id="last">
-                <button class="year" title="השנה הקודמת" onclick="lastYear()">
+                <button class="year" title="השנה הקודמת">
                     << </button>
-                        <button class="month" title="החודש הקודם" onclick="lastMonth()">
+                        <button class="month" title="החודש הקודם">
                             < </button>
             </div>
             <div id="monthName">
@@ -26,8 +27,8 @@
                 <h3 id="loMonth"></h3>
             </div>
             <div id="next">
-                <button class="month" title="חודש הבא" onclick="nextMonth()">></button>
-                <button class="year" title="שנה הבאה" onclick="nextYear()">>></button>
+                <button class="month" title="חודש הבא">></button>
+                <button class="year" title="שנה הבאה">>></button>
             </div>
         </div>
         <div id="thead">
@@ -287,7 +288,6 @@
         </div>
     </main>
     <footer></footer>
-    <script src="js/script.js"></script>
 </body>
 
 </html>
