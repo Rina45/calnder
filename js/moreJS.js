@@ -54,14 +54,34 @@ const MONTHS_H = {
         Av,
         Elul
     ],
-    // next(key) {
-    //     this.index(key);
-
-    // },
     // previous(key) {
-
+    // 
     // },
     // index(key) {
-    //     this.monthList.indexOf(key);
+    //     return this.monthList.indexOf(key);
     // }
+}
+
+function writeDays(dateH, dateL) {
+    const calender = document.getElementById(tbody);
+    const daysH = countDaysH(dateH);
+    const daysL = countDaysL(dateL);
+    for (let day = 1; day <= daysH; day++) {
+        createDay(day);
+    }
+}
+
+function createDay(day) {
+    let td = document.createElement('div');
+    td.className = 'td';
+    let datePlace = document.createElement('div');
+    datePlace.className = 'date';
+    let ot = document.createElement('div');
+    ot.className = 'ot';
+    ot.textContent = numToOt(day);
+    let num = document.createElement('div');
+    num.className = 'num';
+    datePlace.append(ot, num);
+    td.append(datePlace);
+    calender.append(td);
 }
