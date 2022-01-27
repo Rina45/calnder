@@ -13,17 +13,15 @@ async function firstRender() {
     dateH = await getHebrewDate(dateL);
     dateH.afterSunset ? today.setDate(today.getDate() + 1) : null;
     dateH.hd = 1;
-    dateL = await getLoDate(dateH);
+    dateL = dateH.gDate;
     renderCalender(dateL);
 }
 
 window.onload = firstRender();
 
-async function renderCalender(dateL) {
-    let month = await getMonth(dateL);
-    dateH = month[0];
+function renderCalender(dateL) {
     writeTitle(dateH, dateL);
-    writeDays(month);
+    writeDays(dateL);
 }
 
 function writeTitle(dateH, dateL) {
@@ -157,21 +155,22 @@ function writeLoMonth(dateL) {
     }
 }
 
-function writeDays(month) {
+async function writeDays(dateL) {
+    let month = await getMonth(dateL);
     let calender = document.getElementById('tbody');
     calender.innerHTML = "";
-    calender.append(...createFills(month[0].gd.getDay()));
+    calender.append(...createFills(month[0].gDate.getDay()));
     const last = lastInMonth(month[29]);
     for (let i = 0; i < last; i++) {
         calender.append(createDay(month[i]));
     }
-    calender.append(...createFills(6 - month[last - 1].gd.getDay()));
+    calender.append(...createFills(6 - month[last - 1].gDate.getDay()));
 }
 
 function createDay(date) {
     let day = document.createElement('div');
     day.className = 'td';
-    if (compareToToday(date.gd)) {
+    if (compareToToday(date.gDate)) {
         day.setAttribute('id', 'today')
     }
     let datePlace = document.createElement('div');
@@ -181,11 +180,11 @@ function createDay(date) {
     ot.textContent = numToHe(date.hd);
     let num = document.createElement('div');
     num.className = 'num';
-    if (date.gd.getDate() === 1) {
+    if (date.gDate.getDate() === 1) {
         num.innerHTML = '<b>1</b>'
     }
     else {
-        num.textContent = date.gd.getDate();
+        num.textContent = date.gDate.getDate();
     }
     datePlace.append(ot, num);
     day.append(datePlace);
@@ -208,7 +207,8 @@ document.querySelector("#last > .year").addEventListener('click', lastYear);
 
 async function nextMonth() {
     dateH = futureMonth(dateH);
-    dateL = await getLoDate(dateH);
+    dateH = await getByH(dateH);
+    dateL = dateH.gDate;
     renderCalender(dateL);
 }
 
@@ -236,7 +236,8 @@ function futureMonth(date) {
 
 async function lastMonth() {
     dateH = preMonth(dateH);
-    dateL = await getLoDate(dateH);
+    dateH = await getByH(dateH);
+    dateL = dateH.gDate;
     renderCalender(dateL);
 }
 
@@ -264,28 +265,31 @@ function preMonth(date) {
 
 async function nextYear() {
     dateH.hy++;
-    dateL = await getLoDate(dateH);
+    dateH = await getByH(dateH);
+    dateL = dateH.gDate;
     renderCalender(dateL);
 }
 
 async function lastYear() {
     dateH.hy--;
-    dateL = await getLoDate(dateH);
+    dateH = await getByH(dateH);
+    dateL = dateH.gDate;
     renderCalender(dateL);
 }
 
 async function getHebrewDate(dateL) {
     const url = `https://www.hebcal.com/converter?cfg=json&gy=${dateL.getFullYear()}&gm=${dateL.getMonth() + 1}&gd=${dateL.getDate()}&g2h=1`;
     const response = await fetch(url);
-    const data = await response.json();
-    return data
+    let date = await response.json();
+    date.gDate = new Date(date.gy, date.gm - 1, date.gd);
+    return date;
 }
 
-async function getLoDate(dateH) {
+async function getByH(dateH) {
     const url = `https://www.hebcal.com/converter?cfg=json&hy=${dateH.hy}&hm=${dateH.hm}&hd=${dateH.hd}&h2g=1`;
     const response = await fetch(url);
-    const data = await response.json();
-    let date = new Date(data.gy, data.gm - 1, data.gd);
+    let date = await response.json();
+    date.gDate = new Date(date.gy, date.gm - 1, date.gd);
     return date;
 }
 
@@ -297,7 +301,7 @@ async function getMonth(firstDate, numDays = 29) {
     let month = await response.json();
     month = month.hdates;
     month = Object.entries(month);
-    month = month.map(date => { return { ...date[1], gd: new Date(date[0]) } });
+    month = month.map(date => { return { ...date[1], gDate: new Date(date[0]) } });
     return month;
 }
 
