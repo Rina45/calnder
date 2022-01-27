@@ -11,8 +11,9 @@ let today = new Date();
 
 async function firstRender() {
     dateH = await getHebrewDate(dateL);
-    dateH.afterSunset ? today.setDate(today.getDate() + 1) : null;
-    dateH.hd = 1;
+    console.log(dateH);
+    dateH.afterSunset ? null : today.setDate(today.getDate() + 1);
+    dateH = await getByH({ ...dateH, hd: 1 });
     dateL = dateH.gDate;
     renderCalender(dateL);
 }
