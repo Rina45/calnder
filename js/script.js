@@ -93,6 +93,14 @@ function numToHe(num) {
                 word += 'כ';
                 num -= 20;
                 break;
+            case num === 16:
+                word += 'טז';
+                num -= 16;
+                break;
+            case num === 15:
+                word += 'טו';
+                num -= 15;
+                break;
             case num >= 10:
                 word += 'י';
                 num -= 10;
@@ -170,6 +178,9 @@ async function writeDays(dateL) {
 function createDay(date) {
     let day = document.createElement('div');
     day.className = 'td';
+    if (date.gDate.getDay() === 6) {
+        day.classList.add('shabat');
+    }
     if (compareToToday(date.gDate)) {
         day.setAttribute('id', 'today')
     }
