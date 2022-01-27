@@ -3,14 +3,15 @@
 
 3.make the days (including ot, num and Parashah on shabbat)
 4.how to make the today date with the id today.
-5.add holidays (option to others events in the future) 
-learn to use "hebcal" */
+5.add holidays (option to others events in the future) */
 
 let dateL = new Date();
 let dateH = {};
+let today = new Date();
 
 async function firstRender() {
     dateH = await getHebrewDate(dateL);
+    dateH.afterSunset ? today.setDate(today.getDate() + 1) : null;
     dateH.hd = 1;
     dateL = await getLoDate(dateH);
     renderCalender(dateL);
@@ -33,36 +34,6 @@ function writeTitle(dateH, dateL) {
 }
 
 function writeHeMonth(date) {
-    const heMonths = [
-        "תשרי",
-        "חשוון",
-        "כסלו",
-        "טבת",
-        "שבט",
-        "אדר",
-        "אדר א'",
-        "אדר ב'",
-        "ניסן",
-        "אייר",
-        "סיון",
-        "תמוז",
-        "אב",
-        "אלול"];
-    const enMonths = [
-        'Tishrei',
-        'Cheshvan',
-        'Kislev',
-        'Tevet',
-        'Sh\'vat',
-        'Adar',
-        'Adar I',
-        'Adar II',
-        'Nisan',
-        'Iyyar',
-        'Sivan',
-        'Tamuz',
-        'Av',
-        'Elul'];
     const month = heMonths[enMonths.indexOf(date.hm)];
     const year = numToHe(date.hy);
     return `${month} ${year}`;
@@ -177,20 +148,6 @@ function numToHe(num) {
 }
 
 function writeLoMonth(dateL) {
-
-    const monthsL = ['ינואר',
-        'פברואר',
-        'מרץ',
-        'אפריל',
-        'מאי',
-        'יוני',
-        'יולי',
-        'אוגוסט',
-        'ספטמבר',
-        'אוקטובר',
-        'נובמבר',
-        'דצמבר'];
-
     if (dateL.getMonth() !== 11) {
         return monthsL[dateL.getMonth()] + " - " + monthsL[dateL.getMonth() + 1] + " " + dateL.getFullYear();
     }
@@ -204,25 +161,32 @@ function writeDays(month) {
     let calender = document.getElementById('tbody');
     calender.innerHTML = "";
     calender.append(...createFills(month[0].gd.getDay()));
-    for (let i = 0; i < month.length - 1; i++) {
+    const last = lastInMonth(month[29]);
+    for (let i = 0; i < last; i++) {
         calender.append(createDay(month[i]));
     }
-    calender.append(...createFills(6 - month[29].gd.getDay()));
+    calender.append(...createFills(6 - month[last - 1].gd.getDay()));
 }
 
 function createDay(date) {
-    console.log(date)
     let day = document.createElement('div');
     day.className = 'td';
+    if (compareToToday(date.gd)) {
+        day.setAttribute('id', 'today')
+    }
     let datePlace = document.createElement('div');
     datePlace.className = 'date';
     let ot = document.createElement('div');
     ot.className = 'ot';
     ot.textContent = numToHe(date.hd);
     let num = document.createElement('div');
-    //bold in first lo
     num.className = 'num';
-    num.textContent = date.gd.getDate();
+    if (date.gd.getDate() === 1) {
+        num.innerHTML = '<b>1</b>'
+    }
+    else {
+        num.textContent = date.gd.getDate();
+    }
     datePlace.append(ot, num);
     day.append(datePlace);
     return day;
@@ -249,20 +213,6 @@ async function nextMonth() {
 }
 
 function futureMonth(date) {
-    const enMonths = [
-        'Tishrei',
-        'Cheshvan',
-        'Kislev',
-        'Tevet',
-        'Sh\'vat',
-        'Adar',
-        'Nisan',
-        'Iyyar',
-        'Sivan',
-        'Tamuz',
-        'Av',
-        'Elul'
-    ]
     switch (date.hm) {
         case 'Sh\'vat':
             date.hm = 'Adar I';
@@ -278,7 +228,7 @@ function futureMonth(date) {
             date.hy++;
             break;
         default:
-            date.hm = enMonths[enMonths.indexOf(date.hm) + 1];
+            date.hm = theMonths[theMonths.indexOf(date.hm) + 1];
             break;
     }
     return date;
@@ -291,20 +241,6 @@ async function lastMonth() {
 }
 
 function preMonth(date) {
-    const enMonths = [
-        'Tishrei',
-        'Cheshvan',
-        'Kislev',
-        'Tevet',
-        'Sh\'vat',
-        'Adar',
-        'Nisan',
-        'Iyyar',
-        'Sivan',
-        'Tamuz',
-        'Av',
-        'Elul'
-    ]
     switch (date.hm) {
         case 'Nisan':
             date.hm = 'Adar II';
@@ -320,7 +256,7 @@ function preMonth(date) {
             date.hy--;
             break;
         default:
-            date.hm = enMonths[enMonths.indexOf(date.hm) - 1];
+            date.hm = theMonths[theMonths.indexOf(date.hm) - 1];
             break;
     }
     return date;
@@ -353,7 +289,7 @@ async function getLoDate(dateH) {
     return date;
 }
 
-async function getMonth(firstDate, numDays = 30) {
+async function getMonth(firstDate, numDays = 29) {
     let lastDate = new Date(firstDate);
     lastDate.setDate(firstDate.getDate() + numDays);
     const url = `https://www.hebcal.com/converter?cfg=json&start=${stringDate(firstDate)}&end=${stringDate(lastDate)}&g2h=1`;
@@ -369,3 +305,79 @@ function stringDate(date) {
     date.setDate(date.getDate() + 1);
     return date.toISOString().slice(0, 10);
 }
+
+function lastInMonth(last) {
+    if (last.hm == dateH.hm) {
+        return 30;
+    } else {
+        return 29;
+    }
+}
+
+function compareToToday(date) {
+    if (today.getFullYear() === date.getFullYear()) {
+        if (today.getMonth() === date.getMonth()) {
+            if (today.getDate() === date.getDate()) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+const monthsL = ['ינואר',
+    'פברואר',
+    'מרץ',
+    'אפריל',
+    'מאי',
+    'יוני',
+    'יולי',
+    'אוגוסט',
+    'ספטמבר',
+    'אוקטובר',
+    'נובמבר',
+    'דצמבר'];
+const heMonths = [
+    "תשרי",
+    "חשוון",
+    "כסלו",
+    "טבת",
+    "שבט",
+    "אדר",
+    "אדר א'",
+    "אדר ב'",
+    "ניסן",
+    "אייר",
+    "סיון",
+    "תמוז",
+    "אב",
+    "אלול"];
+const enMonths = [
+    'Tishrei',
+    'Cheshvan',
+    'Kislev',
+    'Tevet',
+    'Sh\'vat',
+    'Adar',
+    'Adar I',
+    'Adar II',
+    'Nisan',
+    'Iyyar',
+    'Sivan',
+    'Tamuz',
+    'Av',
+    'Elul'];
+const theMonths = [
+    'Tishrei',
+    'Cheshvan',
+    'Kislev',
+    'Tevet',
+    'Sh\'vat',
+    'Adar',
+    'Nisan',
+    'Iyyar',
+    'Sivan',
+    'Tamuz',
+    'Av',
+    'Elul'
+]
