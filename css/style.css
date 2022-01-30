@@ -40,10 +40,9 @@ header {
     border: #000 solid 0.2em;
 }
 #pink {
-    background-image: url(../images/pink-flowers.jpg);
-    background-position: 50% 70%;
+    background-color: #f5d1f5;
     color: maroon;
-    border: none;
+    border: maroon solid 0.2em;
 }
 #calender {
     width: 685px;
