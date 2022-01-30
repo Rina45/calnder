@@ -10,6 +10,7 @@ let dateH = {};
 let today = new Date();
 
 async function firstRender() {
+    changeToColor();
     dateH = await getHebrewDate(dateL);
     dateH.afterSunset ? null : today.setDate(today.getDate() + 1);
     dateH = await getByH({ ...dateH, hd: 1 });
@@ -396,3 +397,18 @@ const theMonths = [
     'Av',
     'Elul'
 ]
+
+//styleChanger start here
+document.getElementById('pink').addEventListener('click', changeToColor);
+document.getElementById('bnw').addEventListener('click', changeToBnW);
+
+function changeToColor() {
+    document.styleSheets[1].disabled = false;
+    document.styleSheets[2].disabled = true;
+}
+
+function changeToBnW() {
+    document.styleSheets[1].disabled = true;
+    document.styleSheets[2].disabled = false;
+
+}

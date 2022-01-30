@@ -24,6 +24,27 @@ body {
 header {
     margin: 20px;
 }
+.switcher {
+    position: absolute;
+    left:0;
+    top:0;
+}
+.switcher > button {
+    font-size: 0.7rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+}
+#bnw {
+    background-color: #fff;
+    color: #000;
+    border: #000 solid 0.2em;
+}
+#pink {
+    background-image: url(../images/pink-flowers.jpg);
+    background-position: 50% 70%;
+    color: maroon;
+    border: none;
+}
 #calender {
     width: 685px;
     padding: var(--calPad);
