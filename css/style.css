@@ -30,6 +30,7 @@ header {
     top:0;
     display: flex;
     justify-content: center;
+    align-content: center;
 }
 .switcher > button {
     font-size: 0.7rem;
