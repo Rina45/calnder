@@ -7,12 +7,11 @@
 
 let dateL = new Date();
 let dateH = {};
-let today = new Date();
+let today = new Date(dateL);
 
 async function firstRender() {
     changeToColor();
     dateH = await getHebrewDate(dateL);
-    dateH.afterSunset ? null : today.setDate(today.getDate() + 1);
     dateH = await getByH({ ...dateH, hd: 1 });
     dateL = dateH.gDate;
     renderCalender(dateL);
