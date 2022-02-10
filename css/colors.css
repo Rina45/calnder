@@ -3,8 +3,7 @@
     border-color: maroon;
 }
 body {
-    /* background-color: #f1ddf1; need color that match the image */
-    background-image: url(../images/pink-flowers.jpg);
+    background: url(../images/pink-flowers.jpg), #f1ddf1;
     background-repeat: repeat-y;
     background-size: 100%;
     
