@@ -184,6 +184,12 @@ function createDay(date) {
     if (compareToToday(date.gDate)) {
         day.setAttribute('id', 'today')
     }
+    let datePlace = createDate(date);
+    day.append(datePlace);
+    return day;
+}
+
+function createDate(date) {
     let datePlace = document.createElement('div');
     datePlace.className = 'date';
     let ot = document.createElement('div');
@@ -198,8 +204,7 @@ function createDay(date) {
         num.textContent = date.gDate.getDate();
     }
     datePlace.append(ot, num);
-    day.append(datePlace);
-    return day;
+    return datePlace;
 }
 
 function createFills(numDays) {
