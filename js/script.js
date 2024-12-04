@@ -186,6 +186,8 @@ function createDay(date) {
     }
     let datePlace = createDate(date);
     day.append(datePlace);
+    let eventList = createEvent(date);
+    day.append(eventList);
     return day;
 }
 
@@ -205,6 +207,23 @@ function createDate(date) {
     }
     datePlace.append(ot, num);
     return datePlace;
+}
+
+function createEvent(date) {
+    let list = date.events;
+    if (date.gDate.getDay() !== 6) {
+        list.pop();
+    }
+    if (Array.isArray(list) && list.length > 0) {
+        let events = list.toReversed().map(item => `<div> ${item}</div> `).join('');
+        let eventsPlace = document.createElement('div');
+        eventsPlace.className = 'event';
+        eventsPlace.innerHTML = events;
+
+        return eventsPlace;
+    } else {
+        return '';
+    }
 }
 
 function createFills(numDays) {

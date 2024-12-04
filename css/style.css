@@ -4,16 +4,19 @@
     margin: 0;
     padding: 0;
 }
-:root{
+
+:root {
     --widthTd: 95px;
     --calPad: 10px;
 }
+
 body {
     direction: rtl;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
 }
+
 #Besad {
     font-size: 12px;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -21,32 +24,38 @@ body {
     top: 0;
     right: 0;
 }
+
 header {
     margin: 20px;
 }
+
 .switcher {
     position: absolute;
-    left:0;
-    top:0;
+    left: 0;
+    top: 0;
     display: flex;
     justify-content: center;
     align-content: center;
 }
-.switcher > button {
+
+.switcher>button {
     font-size: 0.7rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 600;
 }
+
 #bnw {
     background-color: #fff;
     color: #000;
     border: #000 solid 0.2em;
 }
+
 #pink {
     background-color: #f5d1f5;
     color: maroon;
     border: maroon solid 0.2em;
 }
+
 #calender {
     width: 685px;
     padding: var(--calPad);
@@ -57,50 +66,61 @@ header {
     justify-content: center;
 
 }
+
 #caption {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100px;
 }
+
 #monthName {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
 }
-#heMonth, #loMonth {
+
+#heMonth,
+#loMonth {
     margin: 1px;
 }
+
 button {
     height: 40px;
     width: 50px;
     margin: 3px;
     border-radius: 10px;
-    font-size:25px;
+    font-size: 25px;
     text-align: center;
     border-width: 2px;
     border-style: solid;
 }
-#next, #last {
+
+#next,
+#last {
     display: flex;
     flex-flow: row nowrap
 }
+
 #thead {
     display: flex;
     width: 665px;
 }
+
 .th {
     border-width: 1px;
     border-style: solid;
     width: var(--widthTd);
     text-align: center;
 }
+
 #tbody {
     width: 665px;
     display: flex;
     flex-flow: row wrap;
 }
+
 .td {
     border-width: 1px;
     border-style: solid;
@@ -110,17 +130,21 @@ button {
     flex-flow: column nowrap;
     align-items: center;
 }
+
 .date {
     width: 90px;
     display: flex;
     justify-content: space-between;
     padding: 2px;
-    
+
 }
+
 .ot {
     font-weight: bold;
     font-size: 1.2em;
 }
-.event, .parasha {
-    font-size: 0.9rem;
+
+.event,
+.parasha {
+    font-size: 0.6rem;
 }
