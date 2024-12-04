@@ -291,9 +291,7 @@ async function lastYear() {
 async function getHebrewDate(dateL) {
     const url = `https://www.hebcal.com/converter?cfg=json&gy=${dateL.getFullYear()}&gm=${dateL.getMonth() + 1}&gd=${dateL.getDate()}&g2h=1`;
     const response = await fetch(url);
-    console.log(url);
     let date = await response.json();
-    console.log(date);
     date.gDate = new Date(date.gy, date.gm - 1, date.gd);
     return date;
 }
@@ -309,7 +307,7 @@ async function getByH(dateH) {
 async function getMonth(firstDate, numDays = 29) {
     let lastDate = new Date(firstDate);
     lastDate.setDate(firstDate.getDate() + numDays);
-    const url = `https://www.hebcal.com/converter?cfg=json&start=${stringDate(firstDate)}&end=${stringDate(lastDate)}&g2h=1`;
+    const url = `https://www.hebcal.com/converter?cfg=json&start=${stringDate(firstDate)}&end=${stringDate(lastDate)}&g2h=1&lg=he`;
     const response = await fetch(url);
     let month = await response.json();
     month = month.hdates;
