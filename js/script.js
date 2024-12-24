@@ -208,8 +208,7 @@ function createDate(date) {
     datePlace.append(ot, num);
     return datePlace;
 }
-
-function createEvent(date) {
+function createEventsList(date) {
     let list = date.events;
     if (date.gDate.getDay() !== 6) {
         let newList = [];
@@ -219,7 +218,13 @@ function createEvent(date) {
             }
         }
         list = newList;
-    }
+    } //check if it's a shabbat, if not remove weekly portion from list (פרשה)
+    return list;
+}
+
+function createEvent(date) {
+    let list = createEventsList(date);
+
     if (Array.isArray(list) && list.length > 0) {
         let events = list.toReversed().map(item => `<div> ${item}</div> `).join('');
         let eventsPlace = document.createElement('div');
