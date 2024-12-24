@@ -212,7 +212,13 @@ function createDate(date) {
 function createEvent(date) {
     let list = date.events;
     if (date.gDate.getDay() !== 6) {
-        list.pop();
+        let newList = [];
+        for (let i = 0; i < list.length; i++) {
+            if (!list[i].startsWith("פָּרָשַׁת")) {
+                newList.push(list[i]);
+            }
+        }
+        list = newList;
     }
     if (Array.isArray(list) && list.length > 0) {
         let events = list.toReversed().map(item => `<div> ${item}</div> `).join('');
